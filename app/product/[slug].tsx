@@ -4,10 +4,11 @@ import { Box } from "@/components/ui/box";
 import { Image } from "@/components/ui/image";
 import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
+import { API_HOST } from "@/constants/api";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 
-const API_URL = "http://167.172.35.211/api/v1/records/";
+const API_URL = `${API_HOST}/api/v1/records/`;
 
 export default function ProductDetail() {
     const { id } = useLocalSearchParams();

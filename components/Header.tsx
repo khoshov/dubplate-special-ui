@@ -1,14 +1,16 @@
 import { Box } from "@/components/ui/box";
 import { Button } from "@/components/ui/button";
 import { HStack } from "@/components/ui/hstack";
-import { SearchIcon } from "@/components/ui/icon";
+import { CartIcon, SearchIcon } from "@/components/ui/icon";
 import { Input, InputField, InputSlot } from "@/components/ui/input";
 import { Pressable } from "@/components/ui/pressable";
 import { Text } from "@/components/ui/text";
+import { API_HOST } from "@/constants/api";
+import { useCart } from "@/hooks/CartContext";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 
-const API_CATEGORIES = "http://167.172.35.211/api/v1/styles/";
+const API_CATEGORIES = `${API_HOST}/api/v1/styles/`;
 
 export default function Header() {
     const router = useRouter();
@@ -16,6 +18,7 @@ export default function Header() {
     const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
     const [catLoading, setCatLoading] = useState(true);
     const [catError, setCatError] = useState<string | null>(null);
+    const { items } = useCart();
 
     useEffect(() => {
         setCatLoading(true);
@@ -73,6 +76,15 @@ export default function Header() {
                         </Button>
                     </InputSlot>
                 </Input>
+                <Pressable onPress={() => router.push({ pathname: '/cart' } as any)}
+                    className="relative ml-2 p-2 rounded-full hover:bg-primary-50 active:bg-primary-100 transition-colors">
+                    <CartIcon className="w-6 h-6 text-primary-700" />
+                    {items.length > 0 && (
+                        <Box className="absolute -top-1 -right-1 bg-red-500 rounded-full w-5 h-5 flex items-center justify-center">
+                            <Text className="text-white text-xs font-bold">{items.length}</Text>
+                        </Box>
+                    )}
+                </Pressable>
             </HStack>
 
             {/* 🗂 Категории */}
@@ -83,7 +95,7 @@ export default function Header() {
                     {!catLoading && !catError && categories.map((cat) => (
                         <Pressable
                             key={cat.id}
-                            onPress={() => router.push(`/category/${toSlug(cat.name)}`)}
+                            onPress={() => router.push(`/category/${toSlug(cat.name)}?name=${encodeURIComponent(cat.name)}`)}
                             className="bg-primary-50 hover:bg-primary-100 active:bg-primary-200 transition-colors px-3 py-1 rounded-full shadow-sm border border-primary-100 whitespace-nowrap"
                         >
                             <Text className="text-primary-700 text-sm font-medium">{cat.name}</Text>

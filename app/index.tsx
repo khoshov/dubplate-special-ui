@@ -2,6 +2,7 @@ import ProductList from "@/components/ProductList";
 import { Box } from "@/components/ui/box";
 import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
+import { API_HOST } from "@/constants/api";
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 
@@ -22,7 +23,7 @@ const CATEGORIES = [
 ];
 
 const PAGE_SIZE = 6;
-const API_URL = "http://167.172.35.211/api/v1/records/";
+const API_URL = `${API_HOST}/api/v1/records/`;
 
 export default function Home() {
     const router = useRouter();

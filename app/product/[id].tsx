@@ -4,10 +4,11 @@ import { Box } from "@/components/ui/box";
 import { Image } from "@/components/ui/image";
 import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
+import { API_HOST } from "@/constants/api";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 
-const API_URL = "http://167.172.35.211/api/v1/records/";
+const API_URL = `${API_HOST}/api/v1/records/`;
 
 export default function ProductDetail() {
     const { id } = useLocalSearchParams();
@@ -63,6 +64,9 @@ export default function ProductDetail() {
                 <Text size="xl" bold className="mt-4 text-center">{artistNames} - {product.title}</Text>
                 <Text className="text-gray-500 text-center">{labelName}</Text>
                 <Text size="lg" className="text-primary-500 mt-2 text-center">{price !== "—" ? `$${price}` : price}</Text>
+                <Box className="mt-6 flex items-center justify-center">
+                    <AddToCartButton product={product} />
+                </Box>
                 <Box className="mt-4 mb-2">
                     {releaseYear && (
                         <Text className="bg-gray-100 rounded px-3 py-1 mb-2 mx-1 text-center">
@@ -138,9 +142,6 @@ export default function ProductDetail() {
                         <AudioPlayer uri={product.preview} />
                     </Box>
                 )}
-                <Box className="mt-6 flex items-center justify-center">
-                    <AddToCartButton product={product} />
-                </Box>
             </Box>
         </ScrollView>
     );

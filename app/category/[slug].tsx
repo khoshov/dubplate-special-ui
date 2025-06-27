@@ -2,6 +2,7 @@ import ProductList from "@/components/ProductList";
 import { Box } from "@/components/ui/box";
 import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
+import { API_HOST } from "@/constants/api";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 
@@ -17,10 +18,10 @@ interface Product {
 }
 
 const PAGE_SIZE = 6;
-const API_URL = "http://167.172.35.211/api/v1/records/";
+const API_URL = `${API_HOST}/api/v1/records/`;
 
 export default function CategoryPage() {
-    const {slug} = useLocalSearchParams();
+    const {slug, name} = useLocalSearchParams();
     const [products, setProducts] = useState<Product[]>([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -31,7 +32,7 @@ export default function CategoryPage() {
     useEffect(() => {
         setLoading(true);
         setError(null);
-        const styleName = String(slug).replace(/-/g, ' ');
+        const styleName = name ? String(name) : String(slug).replace(/-/g, ' ');
         fetch(`${API_URL}?style=${encodeURIComponent(styleName)}&page=1`)
             .then(res => {
                 if (!res.ok) throw new Error("Ошибка загрузки товаров");
@@ -47,12 +48,12 @@ export default function CategoryPage() {
                 setError(err.message || "Ошибка");
                 setLoading(false);
             });
-    }, [slug]);
+    }, [slug, name]);
 
     const loadMore = () => {
         if (!hasMore || isFetching.current) return;
         isFetching.current = true;
-        const styleName = String(slug).replace(/-/g, ' ');
+        const styleName = name ? String(name) : String(slug).replace(/-/g, ' ');
         fetch(`${API_URL}?style=${encodeURIComponent(styleName)}&page=${page}`)
             .then(res => {
                 if (!res.ok) throw new Error("Ошибка загрузки товаров");
@@ -85,7 +86,7 @@ export default function CategoryPage() {
     return (
         <ScrollView className="min-h-screen" onScroll={handleScroll} scrollEventThrottle={16}>
             <Box className="p-4">
-                <Text bold>Категория: {slug}</Text>
+                <Text bold>Категория: {name || slug}</Text>
                 {loading && <Text>Загрузка...</Text>}
                 {error && <Text className="text-red-500">{error}</Text>}
                 {!loading && !error && <ProductList products={products}/>} 

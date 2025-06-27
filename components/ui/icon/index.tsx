@@ -1,11 +1,10 @@
 'use client';
-import React from 'react';
-import { createIcon } from '@gluestack-ui/icon';
-import { Path } from 'react-native-svg';
+import { createIcon, IPrimitiveIcon, PrimitiveIcon, Svg } from '@gluestack-ui/icon';
+import { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
 import { cssInterop } from 'nativewind';
-import { VariantProps } from '@gluestack-ui/nativewind-utils';
-import { PrimitiveIcon, IPrimitiveIcon, Svg } from '@gluestack-ui/icon';
+import React from 'react';
+import { Path } from 'react-native-svg';
 
 export const UIIcon = createIcon({
   Root: PrimitiveIcon,
@@ -15,7 +14,7 @@ export const UIIcon = createIcon({
 >;
 
 const iconStyle = tva({
-  base: 'text-typography-950 fill-none pointer-events-none',
+  base: 'text-typography-950 pointer-events-none',
   variants: {
     size: {
       '2xs': 'h-3 w-3',
@@ -256,7 +255,7 @@ ArrowDownIcon.displayName = 'ArrowDownIcon';
 ArrowRightIcon.displayName = 'ArrowRightIcon';
 ArrowLeftIcon.displayName = 'ArrowLeftIcon';
 
-export { ArrowUpIcon, ArrowDownIcon, ArrowRightIcon, ArrowLeftIcon };
+export { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon };
 
 const AtSignIcon = createIcon({
   Root: Svg,
@@ -422,7 +421,7 @@ const CheckCircleIcon = createIcon({
 CheckIcon.displayName = 'CheckIcon';
 CheckCircleIcon.displayName = 'CheckCircleIcon';
 
-export { CheckIcon, CheckCircleIcon };
+export { CheckCircleIcon, CheckIcon };
 
 const ChevronUpIcon = createIcon({
   Root: Svg,
@@ -561,13 +560,12 @@ ChevronsRightIcon.displayName = 'ChevronsRightIcon';
 ChevronsUpDownIcon.displayName = 'ChevronsUpDownIcon';
 
 export {
-  ChevronUpIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
-  ChevronsUpDownIcon,
+  ChevronsUpDownIcon, ChevronUpIcon
 };
 
 const CircleIcon = createIcon({
@@ -665,7 +663,7 @@ const CloseCircleIcon = createIcon({
 CloseIcon.displayName = 'CloseIcon';
 CloseCircleIcon.displayName = 'CloseCircleIcon';
 
-export { CloseIcon, CloseCircleIcon };
+export { CloseCircleIcon, CloseIcon };
 
 const CopyIcon = createIcon({
   Root: Svg,
@@ -1012,7 +1010,7 @@ const ExternalLinkIcon = createIcon({
 });
 
 ExternalLinkIcon.displayName = 'ExternalLinkIcon';
-export { LinkIcon, ExternalLinkIcon };
+export { ExternalLinkIcon, LinkIcon };
 
 const LoaderIcon = createIcon({
   Root: Svg,
@@ -1300,7 +1298,7 @@ const Repeat1Icon = createIcon({
 });
 
 Repeat1Icon.displayName = 'Repeat1Icon';
-export { RepeatIcon, Repeat1Icon };
+export { Repeat1Icon, RepeatIcon };
 
 const SearchIcon = createIcon({
   Root: Svg,
@@ -1583,3 +1581,35 @@ const UnlockIcon = createIcon({
 
 UnlockIcon.displayName = 'UnlockIcon';
 export { UnlockIcon };
+
+const CartIcon = createIcon({
+  Root: Svg,
+  viewBox: '0 0 24 24',
+  path: (
+    <>
+      <Path d="M6 6h15l-1.5 9h-13z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M6 6L5 3H2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </>
+  ),
+});
+CartIcon.displayName = 'CartIcon';
+export { CartIcon };
+
+// Простая залитая белая галочка
+const WhiteCheckIcon = createIcon({
+  Root: Svg,
+  viewBox: '0 0 24 24',
+  path: (
+    <Path
+      d="M6 12l4 4 8-8"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  ),
+});
+WhiteCheckIcon.displayName = 'WhiteCheckIcon';
+export { WhiteCheckIcon };

@@ -9,6 +9,7 @@ import 'react-native-reanimated';
 
 import Header from '@/components/Header';
 import { Box } from '@/components/ui/box';
+import { CartProvider } from '@/hooks/CartContext';
 
 export default function Layout() {
   const colorScheme = useColorScheme();
@@ -19,16 +20,18 @@ export default function Layout() {
   if (!loaded) return null;
 
   return (
-    <GluestackUIProvider mode="light">
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Box className="min-h-screen flex flex-col">
-          <Header />
-          <Box className="flex-1">
-            <Stack screenOptions={{ headerShown: false }} />
+    <CartProvider>
+      <GluestackUIProvider mode="light">
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Box className="min-h-screen flex flex-col">
+            <Header />
+            <Box className="flex-1">
+              <Stack screenOptions={{ headerShown: false }} />
+            </Box>
           </Box>
-        </Box>
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    </GluestackUIProvider>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </GluestackUIProvider>
+    </CartProvider>
   );
 }

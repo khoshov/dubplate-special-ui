@@ -2,6 +2,7 @@ import ProductList from "@/components/ProductList";
 import { Box } from "@/components/ui/box";
 import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
+import { API_HOST } from "@/constants/api";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,7 +15,7 @@ interface Product {
   price?: number;
 }
 
-const API_URL = "http://167.172.35.211/api/v1/records/";
+const API_URL = `${API_HOST}/api/v1/records/`;
 const PAGE_SIZE = 6;
 
 export default function SearchScreen() {
