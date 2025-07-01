@@ -17,9 +17,9 @@ interface Product {
 export default function ProductList({ products }: { products: Product[] }) {
   return (
     <Grid _extra={{ className: "grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" }}>
-      {products.map((p: Product) => (
-        <GridItem key={p.id} _extra={{ className: "col-span-1" }}>
-          <ProductCard product={p} />
+      {products.map((p: Product, index: number) => (
+        <GridItem key={p.id} _extra={{ className: "col-span-1 h-full" }}>
+          <ProductCard product={p} index={index} />
         </GridItem>
       ))}
     </Grid>

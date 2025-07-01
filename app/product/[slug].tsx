@@ -51,7 +51,7 @@ export default function ProductDetail() {
                 </Box>
                 <Text size="xl" bold className="mt-4 text-center">{artistNames} - {product.title}</Text>
                 <Text className="text-gray-500 text-center">{labelName}</Text>
-                <Text size="lg" className="text-primary-500 mt-2 text-center">{price !== "—" ? `$${price}` : price}</Text>
+                <Text size="lg" className="text-primary-500 mt-2 text-center">{price !== "—" ? `${price}₽` : price}</Text>
                 {product.notes && (
                     <Text className="mt-4 whitespace-pre-line text-center text-xs text-gray-600">{product.notes}</Text>
                 )}

@@ -10,6 +10,7 @@ import 'react-native-reanimated';
 import Header from '@/components/Header';
 import { Box } from '@/components/ui/box';
 import { CartProvider } from '@/hooks/CartContext';
+import { SafeAreaView } from '@/components/ui/safe-area-view';
 
 export default function Layout() {
   const colorScheme = useColorScheme();
@@ -23,12 +24,14 @@ export default function Layout() {
     <CartProvider>
       <GluestackUIProvider mode="light">
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Box className="min-h-screen flex flex-col">
-            <Header />
-            <Box className="flex-1">
-              <Stack screenOptions={{ headerShown: false }} />
+          <SafeAreaView className="flex-1 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+            <Box className="flex-1 flex flex-col">
+              <Header />
+              <Box className="flex-1">
+                <Stack screenOptions={{ headerShown: false }} />
+              </Box>
             </Box>
-          </Box>
+          </SafeAreaView>
           <StatusBar style="auto" />
         </ThemeProvider>
       </GluestackUIProvider>
