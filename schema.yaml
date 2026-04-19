@@ -1,0 +1,1155 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/v1/accounts/auth/login/:
+    post:
+      operationId: api_v1_accounts_auth_login_create
+      description: Вход пользователя в систему
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLogin'
+          description: ''
+  /api/v1/accounts/auth/logout/:
+    post:
+      operationId: api_v1_accounts_auth_logout_create
+      description: Выход пользователя из системы
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/accounts/auth/register/:
+    post:
+      operationId: api_v1_accounts_auth_register_create
+      description: Регистрация нового пользователя
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegistration'
+          description: ''
+  /api/v1/accounts/auth/universal_login/:
+    post:
+      operationId: api_v1_accounts_auth_universal_login_create
+      description: Универсальный вход через email/пароль или телефон/SMS код
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversalLogin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UniversalLogin'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UniversalLogin'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversalLogin'
+          description: ''
+  /api/v1/accounts/me/:
+    get:
+      operationId: api_v1_accounts_me_retrieve
+      description: Получение информации о текущем пользователе
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/accounts/profile/{id}/:
+    get:
+      operationId: api_v1_accounts_profile_retrieve
+      description: ViewSet для работы с профилем пользователя
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+    put:
+      operationId: api_v1_accounts_profile_update
+      description: ViewSet для работы с профилем пользователя
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserUpdate'
+          description: ''
+    patch:
+      operationId: api_v1_accounts_profile_partial_update
+      description: ViewSet для работы с профилем пользователя
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdate'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserUpdate'
+          description: ''
+  /api/v1/accounts/profile/change_password/:
+    post:
+      operationId: api_v1_accounts_profile_change_password_create
+      description: Изменение пароля пользователя
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+  /api/v1/accounts/profile/delete_account/:
+    delete:
+      operationId: api_v1_accounts_profile_delete_account_destroy
+      description: Деактивация аккаунта пользователя
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/accounts/sms-auth/auth/:
+    post:
+      operationId: api_v1_accounts_sms_auth_auth_create
+      description: |-
+        Универсальная SMS авторизация
+        Автоматически определяет нужно ли регистрировать пользователя или войти
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversalSMSAuth'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UniversalSMSAuth'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UniversalSMSAuth'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversalSMSAuth'
+          description: ''
+  /api/v1/accounts/sms-auth/check_phone/:
+    get:
+      operationId: api_v1_accounts_sms_auth_check_phone_retrieve
+      description: Проверка, зарегистрирован ли номер телефона
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/accounts/sms-auth/send_code/:
+    post:
+      operationId: api_v1_accounts_sms_auth_send_code_create
+      description: |-
+        Отправка SMS кода для верификации номера телефона
+        Автоматически поддерживает переотправку (если прошло больше 1 минуты)
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendSMS'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendSMS'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendSMS'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendSMS'
+          description: ''
+  /api/v1/orders/orders/:
+    get:
+      operationId: api_v1_orders_orders_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOrderList'
+          description: ''
+    post:
+      operationId: api_v1_orders_orders_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+  /api/v1/orders/orders/{id}/:
+    get:
+      operationId: api_v1_orders_orders_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Порядок.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+  /api/v1/records/records/:
+    get:
+      operationId: api_v1_records_records_list
+      parameters:
+      - in: query
+        name: genre
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: style
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRecordList'
+          description: ''
+  /api/v1/records/records/{id}/:
+    get:
+      operationId: api_v1_records_records_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Релиз.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+          description: ''
+  /api/v1/records/styles/:
+    get:
+      operationId: api_v1_records_styles_list
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Style'
+          description: ''
+  /api/v1/records/styles/{id}/:
+    get:
+      operationId: api_v1_records_styles_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Стиль.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Style'
+          description: ''
+  /openapi.json:
+    get:
+      operationId: openapi.json_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - en
+          - ru
+      tags:
+      - openapi.json
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    Artist:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название
+          maxLength: 255
+        discogs_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        bio:
+          type: string
+          nullable: true
+          title: Биография
+      required:
+      - id
+      - name
+    Format:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название
+          maxLength: 100
+      required:
+      - id
+      - name
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название
+          maxLength: 100
+      required:
+      - id
+      - name
+    Label:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название
+          maxLength: 255
+        discogs_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        description:
+          type: string
+          nullable: true
+          title: Описание
+      required:
+      - id
+      - name
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Full name
+          maxLength: 100
+        phone:
+          type: string
+          maxLength: 20
+        address:
+          type: string
+          title: Adress
+          maxLength: 100
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+        total_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Создан
+      required:
+      - address
+      - created
+      - id
+      - items
+      - name
+      - phone
+      - status
+      - total_price
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+          readOnly: true
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: 1
+          title: Count
+      required:
+      - id
+      - price
+      - title
+    PaginatedOrderList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+    PaginatedRecordList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+    PatchedUserUpdate:
+      type: object
+      properties:
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 150
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 150
+        phone:
+          type: string
+          nullable: true
+          title: Phone number
+          maxLength: 20
+        birth_date:
+          type: string
+          format: date
+          nullable: true
+        address:
+          type: string
+        city:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          maxLength: 20
+    Record:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        title:
+          type: string
+          title: Название
+          maxLength: 255
+        artists:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artist'
+          readOnly: true
+        label:
+          allOf:
+          - $ref: '#/components/schemas/Label'
+          readOnly: true
+        release_year:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          nullable: true
+          title: Год релиза
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+          readOnly: true
+        styles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Style'
+          readOnly: true
+        discogs_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        cover_image:
+          type: string
+          format: uri
+          nullable: true
+          title: Обложка
+        notes:
+          type: string
+          nullable: true
+          title: Заметки
+        stock:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Количество на складе
+        condition:
+          type: string
+          readOnly: true
+        catalog_number:
+          type: string
+          nullable: true
+          title: Каталожный номер
+          maxLength: 50
+        barcode:
+          type: string
+          nullable: true
+          title: Штрих-код
+          maxLength: 20
+        format:
+          type: array
+          items:
+            $ref: '#/components/schemas/Format'
+          readOnly: true
+        active_structured_format_variant:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          nullable: true
+          title: Активный вариант формата
+        structured_formats:
+          type: array
+          items:
+            $ref: '#/components/schemas/StructuredFormat'
+          readOnly: true
+        country:
+          type: string
+          nullable: true
+          title: Страна
+          maxLength: 50
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Track'
+          readOnly: true
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,0})?$
+          nullable: true
+          title: Цена
+          description: 'Например: 5000'
+      required:
+      - artists
+      - condition
+      - format
+      - genres
+      - id
+      - label
+      - structured_formats
+      - styles
+      - title
+      - tracks
+      - url
+    SendSMS:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          description: Российский номер телефона в любом формате
+          maxLength: 20
+      required:
+      - phone_number
+    StatusEnum:
+      enum:
+      - pending
+      - confirmed
+      - processing
+      - shipped
+      - delivered
+      - cancelled
+      type: string
+      description: |-
+        * `pending` - Ожидает подтверждения
+        * `confirmed` - Подтвержден
+        * `processing` - В обработке
+        * `shipped` - Отправлен
+        * `delivered` - Доставлен
+        * `cancelled` - Отменен
+    StructuredFormat:
+      type: object
+      properties:
+        variant_of_format:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          title: Вариант формата
+        carrier:
+          type: string
+          title: Носитель
+          maxLength: 64
+        quantity:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          title: Количество
+        format_name:
+          type: string
+          title: Формат
+          maxLength: 64
+        details:
+          type: string
+          title: Дополнительно
+          maxLength: 255
+      required:
+      - variant_of_format
+    Style:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название
+          maxLength: 100
+      required:
+      - id
+      - name
+    Track:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        position:
+          type: string
+          title: Позиция
+          description: Original position from the source (e.g., 'A1', 'B2'); may be
+            empty.
+          maxLength: 10
+        title:
+          type: string
+          title: Название трека
+          maxLength: 255
+        duration:
+          type: string
+          nullable: true
+          title: Длительность
+          description: Optional; e.g., '05:58'.
+          maxLength: 10
+      required:
+      - id
+      - title
+    UniversalLogin:
+      type: object
+      description: Универсальный сериализатор для входа по email или телефону
+      properties:
+        identifier:
+          type: string
+          description: Email или номер телефона
+        password:
+          type: string
+          description: Пароль (для входа по email)
+        code:
+          type: string
+          description: SMS код (для входа по телефону)
+          maxLength: 6
+          minLength: 6
+      required:
+      - identifier
+    UniversalSMSAuth:
+      type: object
+      description: |-
+        Универсальный сериализатор для SMS авторизации
+        Автоматически определяет нужно ли регистрировать пользователя или войти
+      properties:
+        phone_number:
+          type: string
+          maxLength: 20
+        code:
+          type: string
+          maxLength: 6
+          minLength: 6
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+      required:
+      - code
+      - phone_number
+    UserLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+      - email
+      - password
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          title: Имя пользователя
+          description: Обязательное поле. Не более 150 символов. Только буквы, цифры
+            и символы @/./+/-/_.
+        email:
+          type: string
+          format: email
+          title: Адрес электронной почты
+          maxLength: 254
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 150
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 150
+        phone:
+          type: string
+          nullable: true
+          title: Phone number
+          maxLength: 20
+        birth_date:
+          type: string
+          format: date
+          nullable: true
+        address:
+          type: string
+        city:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          maxLength: 20
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Дата регистрации
+      required:
+      - date_joined
+      - email
+      - id
+      - username
+    UserRegistration:
+      type: object
+      properties:
+        username:
+          type: string
+          title: Имя пользователя
+          description: Обязательное поле. Не более 150 символов. Только буквы, цифры
+            и символы @/./+/-/_.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Адрес электронной почты
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+        confirm_password:
+          type: string
+          writeOnly: true
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 150
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 150
+      required:
+      - confirm_password
+      - email
+      - password
+      - username
+    UserUpdate:
+      type: object
+      properties:
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 150
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 150
+        phone:
+          type: string
+          nullable: true
+          title: Phone number
+          maxLength: 20
+        birth_date:
+          type: string
+          format: date
+          nullable: true
+        address:
+          type: string
+        city:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          maxLength: 20
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
